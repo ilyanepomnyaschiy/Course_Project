@@ -14,5 +14,4 @@ public class Constants {
     public static final String STATISTIC_SEPARATOR = "-------------------------------------------------------------------------------------------------";
     public static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:ss");
-
 }
