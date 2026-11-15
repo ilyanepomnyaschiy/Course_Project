@@ -16,7 +16,8 @@ public class ConsoleApp {
     public static List<String> getTransferParse;
     TransferProcessor processor = new TransferProcessor();
     TransferWriter writer = new TransferWriter();
-    public void launchConsole()  {
+
+    public void launchConsole() {
         // Основное меню
         while (true) {
             System.out.println("Введите команду (0, 1 или 2):");
@@ -30,14 +31,12 @@ public class ConsoleApp {
                         Map<String, List<String>> listTransfer = FileTransferReader.readTxtFilesInputs(Constants.INPUT_DIR_PATH);
                         getTransferParse = processor.getValidTransfers(listTransfer);
 
-
                     } catch (NoInputFilesException e) {
                         System.out.println("Ошибка чтения входных файлов: " + e.getMessage());
                         return; // без данных запускать меню бессмысленно
                     }
                     TransferWriter.writeAllTransfer(Constants.OUTPUT_FILES_PATH, getTransferParse);
                     TransferWriter.writeStatictick(Constants.OUTPUT_FILES_PATH, writer.formStatictick("all", TransferWriter.Transferstats.snapshot(processor)));
-
                     // подменю
                     while (true) {
                         System.out.println("Введите команду (0 или 2):");
@@ -64,7 +63,6 @@ public class ConsoleApp {
                             sc.nextLine();
                         }
                     }
-
                 } else if (numberComand == 2) {
                     TransferPrint.readAlltransfer(Constants.OUTPUT_FILES_PATH, "allTransfer");
                     if (TransferPrint.isTransferts) {
@@ -72,7 +70,6 @@ public class ConsoleApp {
                     } else {
                         return;
                     }
-
                 } else if (numberComand == 0) {
                     System.out.println("Выход из программы");
                     return;
@@ -80,7 +77,6 @@ public class ConsoleApp {
                 } else {
                     System.out.println("Введена неверная команда. Повторите ввод.");
                 }
-
             } catch (InputMismatchException e) {
                 System.out.println("Необходимо ввести число");
                 sc.nextLine();
@@ -88,31 +84,28 @@ public class ConsoleApp {
         }
     }
 
-    public void parseCorrectAndErrorsTransfer () {
+    public void parseCorrectAndErrorsTransfer() {
         sc.nextLine();
         String userChoice;
         do {
             System.out.println("Сформировать файлы с успешными и неуспешными переводами (y/n)?");
             userChoice = sc.nextLine().trim().toLowerCase();
-            if (userChoice.equals("y")) {
-
+            if (userChoice.equalsIgnoreCase("y")) {
                 try {
                     writer.writeCompletedTransfer(processor, getTransferParse);
                 } catch (NoInputFilesException e) {
                     System.out.println("Файл не найден");
-
                 }
                 try {
-                    writer.writeFailedTransfer(processor,getTransferParse);
+                    writer.writeFailedTransfer(processor, getTransferParse);
                 } catch (NoInputFilesException e) {
                     System.out.println("Файл не найден");
                 }
                 readerCorrectAndErrorsTransfer();
 
-            } else if (userChoice.toLowerCase().equals("n")) {
+            } else if (userChoice.equalsIgnoreCase("n")) {
                 System.exit(0);
             } else System.out.println("Введена неверная команда");
-
         }
         while (!userChoice.toLowerCase().equals("y") && !userChoice.equals("n"));
     }
@@ -135,7 +128,6 @@ public class ConsoleApp {
                 } else if (userChoice2 == 2) {
                     TransferPrint.readAlltransfer(Constants.ERROR_TRANSFERS_FILES_PATH, "errorTransfers");
                     System.exit(0);
-
                 } else {
                     System.out.println("Введена неверная команда. Повторите ввод.");
                 }
@@ -144,8 +136,5 @@ public class ConsoleApp {
                 sc.nextLine();
             }
         }
-
     }
-
-
 }

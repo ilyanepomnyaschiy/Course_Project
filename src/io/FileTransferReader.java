@@ -32,10 +32,7 @@ public class FileTransferReader {
      *                               не найдено ни одного {@code .txt}-файла
      *                               (пробрасывается из {@link FileFinder#findTxtFilesInputs(String)}).
      */
-
-
     public static Map<String, List<String>> readTxtFilesInputs(String dirPath) throws NoInputFilesException {
-
         //Список файлов из дирректории
         List<File> listFilesTxt = FileFinder.findTxtFilesInputs(dirPath);
         Map<String, List<String>> mapTransfers = new LinkedHashMap<>();

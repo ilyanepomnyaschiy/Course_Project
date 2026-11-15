@@ -20,14 +20,12 @@ public class FileFinder {
      * @throws NoInputFilesException если директория по указанному пути не существует
      *                               либо в ней отсутствуют файлы с расширением txt
      */
-
     public static List<File> findTxtFilesInputs(String dirPath) throws NoInputFilesException  {
         List<File> listTxtFiles = new ArrayList<>();
         File dir = new File(dirPath);
         if (!dir.isDirectory()) {
             throw new NoInputFilesException("Директория " + dirPath + " не обнаружена. Парсинг не возможно произвести.");
         }
-
         File[] files = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".txt"));
         if (files != null) {
             listTxtFiles.addAll(Arrays.asList(files));
@@ -37,6 +35,4 @@ public class FileFinder {
         }
         return listTxtFiles;
     }
-
-
 }

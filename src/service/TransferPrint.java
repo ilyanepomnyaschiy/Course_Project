@@ -1,8 +1,10 @@
 package service;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Читает текстовый файл с переводами и выводит его содержимое в консоль.
  *
@@ -37,7 +39,6 @@ public class TransferPrint {
             System.out.println(e.getMessage());
             return;
         }
-
         if (countLine == 0) {
             isTransferts = false;
             System.out.println("Переводы не обнаружены");
@@ -45,7 +46,6 @@ public class TransferPrint {
         }
         printHeader(category);
         isTransferts = true;
-
         try (BufferedReader fr = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = fr.readLine()) != null) {
@@ -54,7 +54,6 @@ public class TransferPrint {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     private static void printHeader(String category) {
@@ -66,5 +65,4 @@ public class TransferPrint {
             System.out.println("Список всех переводов");
         }
     }
-
 }

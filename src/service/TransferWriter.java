@@ -84,7 +84,6 @@ public class TransferWriter {
         }
     }
 
-
     public void writeCompletedTransfer(TransferProcessor processor, List<String> transfers) throws NoInputFilesException {
         List<String> listTransfersCorrect = processor.getCompletedTransfers(transfers);
         System.out.print("Файл с корректными переводами: ");
@@ -93,11 +92,10 @@ public class TransferWriter {
 
     }
 
-    public  void writeFailedTransfer(TransferProcessor processor, List<String> transfers) throws NoInputFilesException {
+    public void writeFailedTransfer(TransferProcessor processor, List<String> transfers) throws NoInputFilesException {
         List<String> listTransfersErrors = processor.getFailedTransfers(transfers);
         System.out.print("Файл с ошибочными переводами: ");
         writeAllTransfer(Constants.ERROR_TRANSFERS_FILES_PATH, listTransfersErrors);
         writeStatictick(Constants.ERROR_TRANSFERS_FILES_PATH, formStatictick("failed", Transferstats.snapshot(processor)));
-
     }
 }

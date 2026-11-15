@@ -39,7 +39,6 @@ public class FileBalanceReader {
                 throw new NoInputFilesException("Ошибка чтения " + f.getName() + ": " + e.getMessage());
             }
         }
-        System.out.println(mapBalanses.size());
         return mapBalanses;
     }
 }
