@@ -34,7 +34,7 @@ public class TransferProcessor {
     private static final String accountPayer = "\\s*(?<payerAccount>.\\S+-\\S+)\\s*";
     private static final String fioRecipient = "\\s*(?<recipientSurname>[A-Za-zА-Яа-яёЁ]+)\\s+(?<recipientName>[A-Za-zА-Яа-яёЁ]+)(?:\\s+(?<recipientPatronymic>[A-Za-zА-Яа-яёЁ]+))?\\s*";
     private static final String accountRecipient = "\\s*(?<recipientAccount>\\S+-\\S+)\\s*";
-    private static final String amounTransfer = "\\s*(?<amount>-?\\d+\\.\\d{2})\\s*";
+    private static final String amounTransfer = "\\s*(?<amount>-?\\d+(?:\\.\\d{2})?)\\s*";
     private static final String currentPayment = "\\s*(?<currency>[A-Z]{3})\\s*";
     private static final Pattern pattern = Pattern.compile(patternData + fioPayer + accountPayer + fioRecipient + accountRecipient + amounTransfer + currentPayment);
     private List<String> listTransfersValid = new ArrayList<>();
@@ -159,7 +159,6 @@ public class TransferProcessor {
                     updateBalance(mapBalanceAccounts, payerAccount, newBalancePayer);
                     updateBalance(mapBalanceAccounts, recipientAccount, newBalanceRecipient);
                     updateFileBalance(UPDATE_BALANCE_DIR_PATH, mapBalanceAccounts);
-
 
                 } else {
                     msgSuccessTransfer = "Перевод не выполнен";

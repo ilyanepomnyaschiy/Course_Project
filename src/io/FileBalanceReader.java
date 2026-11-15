@@ -1,5 +1,7 @@
 package io;
+
 import exception.NoInputFilesException;
+
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class FileBalanceReader {
 
     public static Map<String, BigDecimal> readTxtFilesBalances(String dirPath) throws NoInputFilesException {
@@ -25,21 +28,18 @@ public class FileBalanceReader {
                         continue;
                     }
                     //Вывод номера счета
-                    Matcher m =     Pattern.compile(
-                                    "^\\s*\\d+\\s+(\\d{5}-\\d{5})\\s+(\\d+\\s*\\d+\\.\\d{2})\\s*$",
-                                    Pattern.MULTILINE
-                            ).matcher(line);
-                    while (m.find()){
+                    Matcher m = Pattern.compile("^\\s*\\d+\\s+(\\d{5}-\\d{5})\\s+([-+]?\\d[\\d\\s]*(?:\\.\\d{2})?)\\s*$", Pattern.MULTILINE).matcher(line);
+                    while (m.find()) {
                         String numberAccount = m.group(1);
-                        BigDecimal balanceAccount = new BigDecimal(
-                                m.group(2).replaceAll("\\s+", "")
-                        ).setScale(2, RoundingMode.HALF_UP);
-                        mapBalanses.put(numberAccount,balanceAccount);                   }
+                        BigDecimal balanceAccount = new BigDecimal(m.group(2).replaceAll("\\s+", "")).setScale(2, RoundingMode.HALF_UP);
+                        mapBalanses.put(numberAccount, balanceAccount);
+                    }
                 }
             } catch (IOException e) {
                 throw new NoInputFilesException("Ошибка чтения " + f.getName() + ": " + e.getMessage());
             }
         }
+        System.out.println(mapBalanses.size());
         return mapBalanses;
     }
 }
