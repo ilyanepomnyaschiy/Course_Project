@@ -20,36 +20,38 @@ The program can perform the following actions:
 
 ```
 courseProject/
-├── README.md
-└── src/
-    ├── exception/                       # Custom exception classes for error handling
-    │   ├── AppException.java            # Base application exception
-    │   └── NoInputFilesException.java   # Raised when no input files are found
-    ├── io/                              # Classes for reading/writing files and processing transfers
-    │   ├── FileBalanceReader.java       # Reads a file with customer account balances
-    │   ├── FileFinder.java              # Scans a directory and finds text files
-    │   ├── FileTransferReader.java      # Reads all text files
-    │   └── TransferProcessor.java       # Validates transfers, writes them, updates balances
-    ├── resources/                       # Files required for the program to run
-    │   ├── archive/                     # Archival (output) data
-    │   │   ├── allTransfer.txt          # List of all transfers
-    │   │   ├── completedTransfer.txt    # Completed transfers
-    │   │   └── failedTransfer.txt       # Failed transfers
-    │   └── input/                       # Input data
-    │       ├── accounts/                # Account information
-    │       │   └── balance.txt          # Initial balances
-    │       └── transfers/               # Transfer information
-    │           ├── input1.txt
-    │           ├── input2.txt
-    │           └── input3.txt
-    ├── service/                         # Parsing files and console output
-    │   ├── TransferPrint.java           # Prints all transfers to the console
-    │   └── TransferWriter.java          # Parses and writes results
-    ├── util/                            # Auxiliary data
-    │   └── Constants.java               # Constants used in the program
-    ├── ConsoleApp.java                  # Console menu, user input, console interaction
-    └── Main.java                        # Entry point: public static void main(String[] args)
-    
+├── resources/                            # Runtime data (input & output)
+│   ├── archive/                          # Processing results (output)
+│   │   ├── allTransfer.txt               # All transfers
+│   │   ├── completedTransfer.txt         # Successfully completed transfers
+│   │   └── failedTransfer.txt            # Rejected / failed transfers
+│   └── input/                            # Source data (input)
+│       ├── accounts/
+│       │   └── balance.txt               # Initial customer balances
+│       └── transfers/
+│           ├── input1.txt
+│           ├── input2.txt
+│           └── input3.txt
+├── src/
+│   ├── exception/                        # Custom exception classes
+│   │   ├── AppException.java             # Base application exception
+│   │   └── NoInputFilesException.java    # Raised when no input files are found
+│   ├── io/                               # File I/O and transfer processing
+│   │   ├── FileBalanceReader.java        # Reads customer balances
+│   │   ├── FileFinder.java               # Scans directory for .txt files
+│   │   ├── FileTransferReader.java       # Reads all transfer files
+│   │   └── TransferProcessor.java        # Validates, writes, updates balances
+│   ├── service/                          # Parsing and console output
+│   │   ├── TransferPrint.java            # Prints transfers to the console
+│   │   └── TransferWriter.java           # Writes processing results
+│   ├── util/                             # Auxiliary classes
+│   │   └── Constants.java                # Application-wide constants
+│   ├── ConsoleApp.java                   # Console menu and user interaction
+│   └── Main.java                         # Entry point (public static void main)
+├── .editorconfig                         # Editor configuration
+├── .gitignore                            # Git ignore rules
+├── Diagramm_class.png                    # UML class diagram
+└── Readme.md                             # Project documentation
 ```
 
 ## How to Run
