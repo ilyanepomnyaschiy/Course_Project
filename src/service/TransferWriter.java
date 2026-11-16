@@ -43,11 +43,18 @@ public class TransferWriter {
         try {
             Files.write(Path.of(outputStr), List.of(Constants.HEADER1), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             Files.write(Path.of(outputStr), transfer, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-            System.out.println("Парсинг файлов успешно завершен");
-
+            System.out.println("Парсинг файлов успешно завершен: " + outputStr);
         } catch (IOException e) {
             System.out.println("Ошибка записи файла: " + e.getMessage());
         }
+    }
+
+    //Метод для записи распаршенных файлов
+    public static void writaFilesParse(String nameFile, List<String> transfer) {
+        int dot = nameFile.lastIndexOf('.');
+        String base = (dot <= 0) ? nameFile : nameFile.substring(0, dot);
+        String inputParse = "resources/archive/" + base + "Parse.txt";
+        TransferWriter.writeAllTransfer(inputParse, transfer);
     }
 
     public record Transferstats(int total, int completed, int failed) {
@@ -89,7 +96,6 @@ public class TransferWriter {
         System.out.print("Файл с корректными переводами: ");
         writeAllTransfer(Constants.CORRECT_TRANSFERS_FILES_PATH, listTransfersCorrect);
         writeStatictick(Constants.CORRECT_TRANSFERS_FILES_PATH, formStatictick("completed", Transferstats.snapshot(processor)));
-
     }
 
     public void writeFailedTransfer(TransferProcessor processor, List<String> transfers) throws NoInputFilesException {

@@ -1,6 +1,7 @@
 package io;
 
 import exception.NoInputFilesException;
+import service.TransferWriter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -55,4 +56,6 @@ public class FileTransferReader {
         }
         return mapTransfers;
     }
+
+
 }

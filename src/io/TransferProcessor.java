@@ -1,6 +1,7 @@
 package io;
 
 import exception.NoInputFilesException;
+import service.TransferWriter;
 import util.Constants;
 
 import java.io.IOException;
@@ -57,9 +58,9 @@ public class TransferProcessor {
         countIsTransferFailed = 0;
         //Чтение файла с остатками счетов
         Map<String, BigDecimal> mapBalanceAccounts = FileBalanceReader.readTxtFilesBalances(INPUT_BALANCE_DIR_PATH);
-        for (Map.Entry<String, List<String>> str : listLine.entrySet()) {
-            String nameFile = str.getKey();
-            List<String> listTransfer = str.getValue();
+        for (Map.Entry<String, List<String>> fileTransfers : listLine.entrySet()) {
+            String nameFile = fileTransfers.getKey();
+            List<String> listTransfer = fileTransfers.getValue();
             for (String transfer : listTransfer) {
                 String clean = transfer.replaceFirst("\\s+\\S+\\.txt\\s*$", "");
                 Matcher m = pattern.matcher(clean);
@@ -151,8 +152,9 @@ public class TransferProcessor {
                     countIsTransferFailed++;
                     listTransfersValid.add(nameFile + " " + transfer + " " + msgSuccessTransfer + " " + errors);
                 }
+                      }
+            TransferWriter.writaFilesParse(nameFile,fileTransfers.getValue());
             }
-        }
         return listTransfersValid;
     }
 
